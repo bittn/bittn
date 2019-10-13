@@ -1,0 +1,3 @@
+install: Gemfile
+	bundle install
+
