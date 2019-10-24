@@ -159,3 +159,5 @@ tags
 [._]*.un~
 
 # End of https://www.gitignore.io/api/c,vim,ruby,macos
+
+/tests/
