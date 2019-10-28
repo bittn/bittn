@@ -64,7 +64,7 @@ rescue => e
     raise
   else
     puts "--------------------------!error!--------------------------------"
-    puts error.message
+    puts e.message
     puts "Traceback : "
     puts $@
     puts "-----------------------------------------------------------------"

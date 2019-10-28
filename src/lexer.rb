@@ -30,15 +30,15 @@ class Lexer
   def run
     loop do
       if @char == "EOF"
-        found("EOF")
+        found("EOF") if @prgconfig[:debug]
         @tokens.push([:TOK_EOF,"EOF"])
         break
       elsif ["(",")"," ","=","-","+","*","\""].include?(@char)
-        found("symbol")
+        found("symbol") if @prgconfig[:debug]
         @tokens.push(@char,@chars)
         getNextChar()
       elsif [0,1,2,3,4,5,6,7,8,9].map(&:to_s).include?(@char)
-        found("integer")
+        found("integer") if @prgconfig[:debug]
         nums = []
         nums.push(@char.to_i)
         loop do
@@ -61,15 +61,15 @@ class Lexer
             break
           end
         end
-        found(alps.join)
+        found(alps.join) if @prgconfig[:debug]
         if @idntfs.include?(alps.join)
-          msg("#{alps.join} = TOK_IDENTIFIERS")
+          msg("#{alps.join} = TOK_IDENTIFIERS") if @prgconfig[:debug]
           @tokens.push(["TOK_IDENTIFIERS",alps.join])
         elsif ["int"].include?(alps.join)
-          msg("#{alps.join} = TOK_TYPE")
+          msg("#{alps.join} = TOK_TYPE") if @prgconfig[:debug]
           @tokens.push(["TOK_TYPE",alps.join])
         else
-          msg("#{alps.join} = TOK_CHAR")
+          msg("#{alps.join} = TOK_CHAR") if @prgconfig[:debug]
           @tokens.push(["TOK_CHAR",alps.join])
         end
       else
@@ -80,7 +80,7 @@ class Lexer
   end
 
   def getNextChar
-    msg("NextChar #{@charnumber+2}")
+    msg("NextChar #{@charnumber+2}") if @prgconfig[:debug]
     if @line[@charnumber+1] == nil
       getNextLine()
     end
@@ -89,7 +89,7 @@ class Lexer
   end
 
   def getNextLine
-    msg("NextLine #{@linenumber+1}")
+    msg("NextLine #{@linenumber+1}") if @prgconfig[:debug]
     @line = @code[@linenumber]
     @linenumber+=1
   end
