@@ -1,3 +1,3 @@
-# bittn
 This is laungage proccesser.
-## 仕様
+
+Wiki: https://github.com/pinenut-programming-language/bittn/wiki
