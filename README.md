@@ -1,5 +1,6 @@
 # Bittn
 This is programming language.
+[English](https://translate.google.com/translate?hl=en&sl=ja&tl=en&u=https://github.com/pinenut-programming-language/bittn/)
 Wiki: https://github.com/pinenut-programming-language/bittn/wiki
 ## Versions
 ### latest(2.0)
