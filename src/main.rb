@@ -52,7 +52,7 @@ rescue => e
     puts "Traceback : "
     puts $@
     puts "-----------------------------------------------------------------"
-    puts "An error that occurred in the processing system"
+    puts "An error is occurred in the processing system"
     puts "You can issue issues on Github."
     puts "https://github.com/pinenut-programming-language/bittn/issues/new"
     puts "-----------------------------------------------------------------"
