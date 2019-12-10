@@ -34,10 +34,6 @@ begin
     raise BittnError,"Can't assign to keyword. (FileError)"
   end
   newblock("parser") if prgconfig[:debug]
-  parser = Parser.new(filename,prgconfig)
-  ast = parser.run
-  msg("Maked AST") if prgconfig[:debug]
-  pp ast if prgconfig[:debug]
 rescue BittnError => e
   newblock("bittn error") if prgconfig[:debug]
   puts e.message
