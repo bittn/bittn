@@ -2,7 +2,7 @@ task :default => :install
 
 desc 'Install bittn programming language'
 task :install do
-  sh "cp bin/bittn_macos_catalina_or_later /usr/local/bin/bittn"
+  sh "cp bin/bittn_mac /usr/local/bin/bittn"
   sh "chmod 755 /usr/local/bin/bittn"
   print "\e[32m"
   puts "---- successfully install ----"
