@@ -1,4 +1,6 @@
 #!/bin/bash
+#////////// require
+cd `dirname $0`
 ESC=$(printf '\033')
 if [ "${ZSH_VERSION:-}" ] || [ "${KSH_VERSION:-}" ]; then
   puts() { IFS=" $IFS"; print -nr -- "${*:-}"; IFS=${IFS# }; }
@@ -15,11 +17,13 @@ else
   puts() { printf '%s' "$*"; }
 fi
 putsn() { IFS=" $IFS"; puts "${*:-}$LF"; IFS=${IFS# }; }
+
 # ruby
 if !(type "ruby" > /dev/null 2>&1); then
   putsn "${ESC}[31mPlease install ruby.${ESC}[m"
   exit 1
 fi
+#rake
 if !(type "rake" > /dev/null 2>&1); then
   echo -n "Install rake [Y/n]: "
   read ANS
@@ -37,16 +41,16 @@ if !(type "rake" > /dev/null 2>&1); then
 fi
 
 # ------------------------------version---
-if [ "$(uname)" == 'Darwin' ]; then
-  if [ "$(ruby -e "puts Gem::Version.create('$(sw_vers -productVersion)') >= Gem::Version.create('10.15')")" == 'true' ]; then
+if [ "$(uname)" == 'Darwin' ]; then #macOs
+  if [ "$(ruby -e "puts Gem::Version.create('$(sw_vers -productVersion)') >= Gem::Version.create('10.15')")" == 'true' ]; then # catalina or later
     cp rake/Rakefile_macos_catalina_or_later Rakefile
-  elif [ "$(ruby -e "puts Gem::Version.create('$(sw_vers -productVersion)') >= Gem::Version.create('10.15')")" == 'false' ]; then
+  elif [ "$(ruby -e "puts Gem::Version.create('$(sw_vers -productVersion)') >= Gem::Version.create('10.15')")" == 'false' ]; then # macOS
     cp rake/Rakefile_mac Rakefile
   else
     putsn "${ESC}[31mYour platform (Mac $(sw_vers -productVersion)) is not supported.${ESC}[m"
     exit 1
   fi
-elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
+elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then # linux
   cp rake/Rakefile_linux Rakefile
 else
   putsn "${ESC}[31mYour platform ($(uname -a)) is not supported.${ESC}[m"
