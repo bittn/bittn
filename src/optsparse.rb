@@ -9,7 +9,7 @@ class OptParse
       optvol+=1
     }
     opts.program_name = "bittn"
-    opts.banner = 'ruby src/main.rb [options] filename'
+    opts.banner = 'bittn [options] [bikefile] [filename]'
     begin
       args = opts.parse(argv)
     rescue OptionParser::InvalidOption => e
