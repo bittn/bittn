@@ -4,11 +4,20 @@ desc 'Install bittn programming language'
 task :install do
   sh "cp bin/bittn_macos_catalina_or_later /usr/local/bin/bittn"
   sh "chmod 755 /usr/local/bin/bittn"
+  sh "cp bin/bike_macos_catalina_or_later /usr/local/bin/bike"
+  sh "chmod 755 /usr/local/bin/bike"
   print "\e[32m"
   puts "---- successfully install ----"
-  puts " # in .bashrc / .zshrc / .config/fish/config.fish"
-  puts "export BITTNDIR=#{`pwd`}"
-  puts "export PATH=$PATH:/usr/local/bin"
+  case ENV["SHELL"].split("/").last
+  when /bash|zsh/
+    puts " # in .bashrc"
+    puts "export BITTNDIR=#{`pwd`}"
+    puts "export PATH=$PATH:/usr/local/bin"
+  when "fish"
+    puts " # in .config/fish/config.fish"
+    puts "set BITTNDIR #{`pwd`}"
+    puts "set PATH $PATH:/usr/local/bin"
+  end
   print "\e[0m"
 end
 
