@@ -39,6 +39,21 @@ if !(type "rake" > /dev/null 2>&1); then
     ;;
   esac
 fi
+if !(type "bundle" > /dev/null 2>&1); then
+  echo -n "Install bundle [Y/n]: "
+  read ANS
+  case $ANS in
+    "" | [Yy]* )
+    # ここに「Yes」の時の処理を書く
+    sudo gem install bundler
+    ;;
+    * )
+    # ここに「No」の時の処理を書く
+    putsn "${ESC}[31mPlease install bundle.${ESC}[m"
+    exit 1
+    ;;
+  esac
+fi
 
 # ------------------------------version---
 if [ "$(uname)" == 'Darwin' ]; then #macOs

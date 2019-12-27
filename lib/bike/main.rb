@@ -1,13 +1,16 @@
-require "#{ENV["BITTNDIR"]}/src/main.rb"
-require "#{ENV["BITTNDIR"]}/src/error.rb"
-require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
-@prgconfig = {}
-begin
-  require 'fileutils'
-  require "#{ENV["BITTNDIR"]}/lib/bike/optsparse.rb"
+if $0 == __FILE__
   require "#{ENV["BITTNDIR"]}/lib/bike/init/main.rb"
   require "#{ENV["BITTNDIR"]}/lib/bike/run/main.rb"
   require "#{ENV["BITTNDIR"]}/lib/bike/set/main.rb"
+end
+require "#{ENV["BITTNDIR"]}/src/main.rb"
+require "#{ENV["BITTNDIR"]}/src/error.rb"
+require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
+require "#{ENV["BITTNDIR"]}/lib/bike/optsparse.rb"
+require 'dotenv'
+require 'fileutils'
+@prgconfig = {}
+begin
   class Bike < Bittn
     def initialize(argv)
       # optparse --------------------------
@@ -31,15 +34,20 @@ begin
       newval(command,"command") if @prgconfig[:debug]
       case command[0]
       when "init"
-        Bike::Init.new(command)
+        msg("init") if @prgconfig[:debug]
+        Init.new(command)
       when "run"
-        Bike::Run.new(command)
+        msg("run") if @prgconfig[:debug]
+        Run.new(command)
       when "set"
-        Bike::Set.new(command)
+        msg("set") if @prgconfig[:debug]
+        Set.new(command)
       end
     end
   end
-  Bike.new(ARGV)
+  if $0 == __FILE__
+    Bike.new(ARGV)
+  end
 rescue BikeError => e
   newblock("bittn error") if @prgconfig[:debug]
   puts e.message
@@ -51,18 +59,18 @@ rescue Errno => e
   exit(1)
 rescue StandardError => e
   #newblock("standard error") if @prgconfig[:debug]
-  if @prgconfig[:debug]
-    raise
-  else
-    puts "--------------------------!error!--------------------------------"
-    puts e.message
-    puts "Traceback : "
-    puts $@
-    puts "-----------------------------------------------------------------"
-    puts "An error is occurred in the processing system"
-    puts "You can issue issues on Github."
-    puts "https://github.com/pinenut-programming-language/bittn/issues/new"
-    puts "-----------------------------------------------------------------"
-  end
+  # if @prgconfig[:debug]
+  raise
+  # else
+  # puts "--------------------------!error!--------------------------------"
+  # puts e.message
+  # puts "Traceback : "
+  #   puts $@
+  #   puts "-----------------------------------------------------------------"
+  #   puts "An error is occurred in the processing system"
+  #   puts "You can issue issues on Github."
+  #   puts "https://github.com/pinenut-programming-language/bittn/issues/new"
+  #   puts "-----------------------------------------------------------------"
+  # end
   exit(1)
 end

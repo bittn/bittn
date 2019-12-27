@@ -9,7 +9,15 @@ class OptParse
       optvol+=1
     }
     opts.program_name = "bike"
-    opts.banner = 'bike [option] [command]'
+    opts.banner = 'Usage: bike [option] [command]'
+    tags = Array.new
+    `cd #{ENV["BITTNDIR"]};git tag`.chomp.split("\n").each do |t|
+      tags.push(Gem::Version.create(t.gsub(/[^[\.\d]]/, "")))
+    end
+    opts.version = tags.max.to_s
+    opts.release  = 'dev'
+    opts.on('-h','--help', 'show help.') { puts opts.help; exit }
+    opts.on('-v','--version', 'show version.') { puts opts.ver; exit }
     begin
       args = opts.parse(argv)
     rescue OptionParser::InvalidOption => e

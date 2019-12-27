@@ -1,4 +1,5 @@
 require 'optparse'
+require "#{ENV["BITTNDIR"]}/lib/yesorno/main.rb"
 class OptParse
   def parse_options(argv = ARGV)
     prgconfig = {debug: false}
@@ -9,7 +10,15 @@ class OptParse
       optvol+=1
     }
     opts.program_name = "bittn"
-    opts.banner = 'bittn [options] [bikefile] [filename]'
+    tags = Array.new
+    `cd #{ENV["BITTNDIR"]};git tag`.chomp.split("\n").each do |t|
+      tags.push(Gem::Version.create(t.gsub(/[^[\.\d]]/, "")))
+    end
+    opts.version = tags.max.to_s
+    opts.release  = 'dev'
+    opts.banner = 'Usage: bittn [options] [bikefile] [filename]'
+    opts.on('-h','--help', 'show help.') { puts opts.help; exit }
+    opts.on('-v','--version', 'show version.') { puts opts.ver; exit }
     begin
       args = opts.parse(argv)
     rescue OptionParser::InvalidOption => e
@@ -22,4 +31,16 @@ class OptParse
   def run(argv = ARGV)
     return parse_options(argv)
   end
+end
+if $0 == __FILE__
+  puts "to debug, ARGV :"
+  argv = gets.chomp
+  opts = OptParse.new(argv)
+  prgconfig,args,optvol = opts.run
+  puts "prgconfig :"
+  pp prgconfig
+  puts "args :"
+  pp args
+  puts "optvol :"
+  pp optvol
 end

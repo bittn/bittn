@@ -2,6 +2,7 @@ task :default => :install
 
 desc 'Install bittn programming language'
 task :install do
+  sh "bundle install"
   sh "cp bin/bittn_macos_catalina_or_later /usr/local/bin/bittn"
   sh "chmod 755 /usr/local/bin/bittn"
   sh "cp bin/bike_macos_catalina_or_later /usr/local/bin/bike"
@@ -15,8 +16,8 @@ task :install do
     puts "export PATH=$PATH:/usr/local/bin"
   when "fish"
     puts " # in .config/fish/config.fish"
-    puts "set BITTNDIR #{`pwd`}"
-    puts "set PATH $PATH:/usr/local/bin"
+    puts "set -x BITTNDIR #{`pwd`}"
+    puts "set PATH /usr/local/bin $PATH"
   end
   print "\e[0m"
 end
@@ -24,5 +25,10 @@ end
 desc 'Uninstall bittn programming language'
 task :uninstall do
   sh "rm /usr/local/bin/bittn"
+  sh "rm /usr/local/bin/bike"
   sh "rm Rakefile; exit 0"
+end
+
+task :reinstall do
+  sh "rake uninstall;bash install.sh;rake install"
 end

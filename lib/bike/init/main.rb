@@ -1,10 +1,9 @@
-require 'Fileutils'
 require "#{ENV["BITTNDIR"]}/lib/bike/init/optsparse.rb"
 require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
 require "#{ENV["BITTNDIR"]}/lib/bike/main.rb"
 
 class BikeError < BittnError; end
-class Init < Bike
+class Init
   def initialize(argv)
     # optparse --------------------------
     opts = OptParse.new(argv)

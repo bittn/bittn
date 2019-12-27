@@ -1,10 +1,11 @@
-require_relative '#{ENV["BITTNDIR"]}/lib/bike/init/optsparse.rb'
-require_relative '#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb'
+require "#{ENV["BITTNDIR"]}/lib/bike/init/optsparse.rb"
+require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
 require 'dotenv'
-Dotenv.load! ".bike/.bike_env"
-class Set < Bike
+
+class Set
   def initialize(argv)
     # optparse --------------------------
+    Dotenv.load! ".bike/.bike_env"
     opts = OptParse.new(argv)
     prgconfig,args,optvol = opts.run
     if prgconfig[:debug]

@@ -1,11 +1,25 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
+    dotenv (2.7.5)
+    fileutils (1.4.1)
+    highline (2.0.3)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    parslet (1.8.2)
+    public_suffix (4.0.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
+  fileutils
+  highline
+  launchy
+  parslet
 
 BUNDLED WITH
-   2.0.2
+   2.1.2
