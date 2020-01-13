@@ -18,7 +18,6 @@ else
 fi
 putsn() { IFS=" $IFS"; puts "${*:-}$LF"; IFS=${IFS# }; }
 
-# ruby
 if !(type "ruby" > /dev/null 2>&1); then
   putsn "${ESC}[31mPlease install ruby.${ESC}[m"
   exit 1
@@ -29,11 +28,9 @@ if !(type "rake" > /dev/null 2>&1); then
   read ANS
   case $ANS in
     "" | [Yy]* )
-    # ここに「Yes」の時の処理を書く
     sudo gem install rake
     ;;
     * )
-    # ここに「No」の時の処理を書く
     putsn "${ESC}[31mPlease install rake.${ESC}[m"
     exit 1
     ;;
@@ -44,11 +41,9 @@ if !(type "bundle" > /dev/null 2>&1); then
   read ANS
   case $ANS in
     "" | [Yy]* )
-    # ここに「Yes」の時の処理を書く
     sudo gem install bundler
     ;;
     * )
-    # ここに「No」の時の処理を書く
     putsn "${ESC}[31mPlease install bundle.${ESC}[m"
     exit 1
     ;;
