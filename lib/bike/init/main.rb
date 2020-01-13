@@ -1,4 +1,6 @@
-require "#{ENV["BITTNDIR"]}/lib/bike/init/optsparse.rb"
+if $0 == __FILE__
+  require "#{ENV["BITTNDIR"]}/lib/bike/init/optsparse.rb"
+end
 require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
 require "#{ENV["BITTNDIR"]}/lib/bike/main.rb"
 

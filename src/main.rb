@@ -1,5 +1,6 @@
 require 'launchy'
 require 'ripper'
+
 require "#{ENV["BITTNDIR"]}/src/optsparse.rb"
 require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
 require "#{ENV["BITTNDIR"]}/lib/bike/main.rb"
@@ -7,8 +8,7 @@ require "#{ENV["BITTNDIR"]}/src/error.rb"
 require "#{ENV["BITTNDIR"]}/lib/yesorno/main.rb"
 
 
-opts = OptParse.new(ARGV)
-prgconfig,args,optvol = opts.run
+prgconfig,args,optvol = OptParse.new(ARGV).run
 
 begin
 

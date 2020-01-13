@@ -3,7 +3,6 @@ if $0 == __FILE__
   require "#{ENV["BITTNDIR"]}/lib/bike/run/main.rb"
   require "#{ENV["BITTNDIR"]}/lib/bike/set/main.rb"
 end
-require "#{ENV["BITTNDIR"]}/src/main.rb"
 require "#{ENV["BITTNDIR"]}/src/error.rb"
 require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
 require "#{ENV["BITTNDIR"]}/lib/bike/optsparse.rb"
@@ -11,7 +10,7 @@ require 'dotenv'
 require 'fileutils'
 @prgconfig = {}
 begin
-  class Bike < Bittn
+  class Bike
     def initialize(argv)
       # optparse --------------------------
       opts = OptParse.new(argv)

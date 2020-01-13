@@ -16,8 +16,6 @@ class OptParse
     end
     opts.version = tags.max.to_s
     opts.release  = 'dev'
-    opts.on('-h','--help', 'show help.') { puts opts.help; exit }
-    opts.on('-v','--version', 'show version.') { puts opts.ver; exit }
     begin
       args = opts.parse(argv)
     rescue OptionParser::InvalidOption => e
