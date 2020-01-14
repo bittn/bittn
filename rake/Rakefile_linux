@@ -2,7 +2,6 @@ task :default => :install
 
 desc 'Install bittn programming language'
 task :install do
-  sh "bundle install"
   sh "cp bin/bittn_linux /usr/local/bin/bittn"
   sh "chmod 755 /usr/local/bin/bittn"
   sh "cp bin/bike_linux /usr/local/bin/bike"

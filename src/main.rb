@@ -1,12 +1,12 @@
+p ARGV
 require 'launchy'
 require 'ripper'
 
-require "#{ENV["BITTNDIR"]}/src/optsparse.rb"
 require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
 require "#{ENV["BITTNDIR"]}/lib/bike/main.rb"
 require "#{ENV["BITTNDIR"]}/src/error.rb"
 require "#{ENV["BITTNDIR"]}/lib/yesorno/main.rb"
-
+require "#{ENV["BITTNDIR"]}/src/optsparse.rb"
 
 prgconfig,args,optvol = OptParse.new(ARGV).run
 
@@ -52,7 +52,13 @@ begin
       if !File.file?(bikefile)
         raise BittnError,"Can't assign to keyword. (FileError)"
       end
+      p ENV["PROJECTDIR"]
+      require "#{ENV["PROJECTDIR"]}/"+bikefile
+      lang = BittnLang.new
+      parser = lang.parser.new
       newblock("parser") if prgconfig[:debug]
+      code = open(filename, &:read)
+      p parser.parse(code)
     end
   end
   if $0 == __FILE__

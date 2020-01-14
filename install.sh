@@ -22,6 +22,10 @@ if !(type "ruby" > /dev/null 2>&1); then
   putsn "${ESC}[31mPlease install ruby.${ESC}[m"
   exit 1
 fi
+if !(type "gem" > /dev/null 2>&1); then
+  putsn "${ESC}[31mPlease install Rubygems.${ESC}[m"
+  exit 1
+fi
 #rake
 if !(type "rake" > /dev/null 2>&1); then
   echo -n "Install rake [Y/n]: "
@@ -36,19 +40,7 @@ if !(type "rake" > /dev/null 2>&1); then
     ;;
   esac
 fi
-if !(type "bundle" > /dev/null 2>&1); then
-  echo -n "Install bundle [Y/n]: "
-  read ANS
-  case $ANS in
-    "" | [Yy]* )
-    sudo gem install bundler
-    ;;
-    * )
-    putsn "${ESC}[31mPlease install bundle.${ESC}[m"
-    exit 1
-    ;;
-  esac
-fi
+
 
 # ------------------------------version---
 if [ "$(uname)" == 'Darwin' ]; then #macOs
