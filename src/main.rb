@@ -1,4 +1,3 @@
-p ARGV
 require 'launchy'
 require 'ripper'
 
@@ -11,7 +10,6 @@ require "#{ENV["BITTNDIR"]}/src/optsparse.rb"
 prgconfig,args,optvol = OptParse.new(ARGV).run
 
 begin
-
   class Bittn
     def initialize(prgconfig,args,optvol)
       # optparse --------------------------
@@ -25,7 +23,6 @@ begin
         newval(args,"args")
         newval(optvol,"optvol")
       end
-
       newblock("inputs") if prgconfig[:debug]
       if args.size < 1
         raise BittnError,"File and Bikefile not specified. (FileError)"
@@ -59,6 +56,7 @@ begin
       newblock("parser") if prgconfig[:debug]
       code = open(filename, &:read)
       p parser.parse(code)
+      newblock("run") if prgconfig[:debug]
     end
   end
   if $0 == __FILE__
@@ -82,7 +80,7 @@ rescue => e
     puts "-----------------------------------------------------------------"
     if yesno("Can you issue on github?")
       puts "Thank you for your issue."
-      Launchy.open("https://github.com/pinenut-programming-language/bittn/issues/new?labels=&title=bug%20report%20from%20command%20line")
+      Launchy.open("https://github.com/pinenut-programming-language/bittn/issues/new?labels=&title=bug%20report%20from%20commande")
     else
       puts "You can issue on github."
       puts "https://github.com/pinenut-programming-language/bittn/issues/new"
