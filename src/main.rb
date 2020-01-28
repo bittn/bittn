@@ -7,6 +7,7 @@ require "#{ENV["BITTNDIR"]}/src/error.rb"
 require "#{ENV["BITTNDIR"]}/lib/yesorno/main.rb"
 require "#{ENV["BITTNDIR"]}/src/optsparse.rb"
 require "#{ENV["BITTNDIR"]}/src/transform.rb"
+require "#{ENV["BITTNDIR"]}/src/run.rb"
 
 prgconfig,args,optvol = OptParse.new(ARGV).run
 
@@ -67,6 +68,8 @@ begin
       pp transformer_result
       finished("TRANSFORM")
       newblock("run") if prgconfig[:debug]
+      runner = BittnRunner.new(Marshal.dump(lang))
+      runner_result = runner.run("",transformer_result)
     end
   end
   if $0 == __FILE__
@@ -74,6 +77,10 @@ begin
   end
 rescue BittnError => e
   newblock("bittn error") if prgconfig[:debug]
+  puts e.message
+  exit(1)
+rescue Parslet::ParseFailed => e
+  newblock("parslet error") if prgconfig[:debug]
   puts e.message
   exit(1)
 rescue => e
