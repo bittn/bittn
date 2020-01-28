@@ -1,4 +1,1 @@
-print("aiueo")
-print{
-  print("aiueo")
-}
+1234
