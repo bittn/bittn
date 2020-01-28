@@ -60,6 +60,12 @@ begin
       print("RESULT : \n")
       pp parser_result
       finished("PARSE")
+      newblock("transform") if prgconfig[:debug]
+      transformer = BittnTransformer.new(parser_result,Marshal.dump(lang))
+      transformer_result = transformer.transform("")
+      print("RESULT : \n")
+      pp transformer_result
+      finished("TRANSFORM")
       newblock("run") if prgconfig[:debug]
     end
   end
