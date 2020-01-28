@@ -6,6 +6,7 @@ require "#{ENV["BITTNDIR"]}/lib/bike/main.rb"
 require "#{ENV["BITTNDIR"]}/src/error.rb"
 require "#{ENV["BITTNDIR"]}/lib/yesorno/main.rb"
 require "#{ENV["BITTNDIR"]}/src/optsparse.rb"
+require "#{ENV["BITTNDIR"]}/src/transform.rb"
 
 prgconfig,args,optvol = OptParse.new(ARGV).run
 
@@ -49,13 +50,16 @@ begin
       if !File.file?(bikefile)
         raise BittnError,"Can't assign to keyword. (FileError)"
       end
-      p ENV["PROJECTDIR"]
+      # p ENV["PROJECTDIR"]
       require "#{ENV["PROJECTDIR"]}/"+bikefile
-      lang = BittnLang.new
-      parser = lang.parser.new
-      newblock("parser") if prgconfig[:debug]
+      lang = Lang.new
+      newblock("parse") if prgconfig[:debug]
+      parser = Marshal.load(lang.getParser)
       code = open(filename, &:read)
-      p parser.parse(code)
+      parser_result = parser.parse(code)
+      print("RESULT : \n")
+      pp parser_result
+      finished("PARSE")
       newblock("run") if prgconfig[:debug]
     end
   end
