@@ -17,3 +17,6 @@ end
 def msg(msg)
   puts "MSG : #{msg}"
 end
+def result(result)
+  puts "RESULT : #{result}"
+end
