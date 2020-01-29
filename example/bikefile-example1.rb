@@ -1,6 +1,5 @@
 require 'parslet'
 require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
-require "#{ENV["BITTNDIR"]}/bin/helper/main.rb"
 
 # ----- Sample -----      #
 # class ****Node          #
