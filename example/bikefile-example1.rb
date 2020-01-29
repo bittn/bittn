@@ -1,7 +1,7 @@
 require 'parslet'
 require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
 
-# ----- Sample -----      #
+# ----- Sample ---------- #
 # class ****Node          #
 #   def initialize(data)  #
 #   @data = data          #
@@ -17,7 +17,7 @@ require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
 #   def exec()            #
 #   end                   #
 # end                     #
-# ------------------      #
+# ----------------------- #
 
 
 
