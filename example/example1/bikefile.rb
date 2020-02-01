@@ -92,9 +92,9 @@ class Lang
     @version = Gem::Version.create("0.0.0-dev")
     @parser = Marshal.dump(BittnTestLangParser.new)
     @kinds = {
-      CodeNode => :obj,
-      LineNode => :obj,
-      IntegerNode => :type
+      "CodeNode" => :obj,
+      "LineNode" => :obj,
+      "IntegerNode" => :type
     }
     @obj = {
       # Marshal.dump(PrintNode.new)
@@ -128,11 +128,13 @@ end
 
 class CodeNode
   def initialize(data)
-    # p data
     @data = data
   end
   def call()
-    Marshal.load(@data[0]).call
+    Marshal.load(@data[0][0]).call
+  end
+  def class_name
+    self.class.name
   end
 end
 
@@ -141,7 +143,10 @@ class LineNode
     @data = data
   end
   def call()
-    @data[0].call
+    Marshal.load(@data[0][0]).exec
+  end
+  def class_name
+    self.class.name
   end
 end
 
@@ -150,6 +155,9 @@ class IntegerNode
     @data = data
   end
   def exec()
-    return data
+    return @data.to_i
+  end
+  def class_name
+    self.class.name
   end
 end
