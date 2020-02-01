@@ -23,7 +23,7 @@ class OptParse
       tags.push(Gem::Version.create(t.gsub(/[^[\.\d]]/, "")))
     end
     opts.version = tags.max.to_s
-    opts.release  = 'dev'
+    opts.release  = 'release'
     opts.banner = 'Usage: bittn [options] [bikefile] [filename]'
     opts.on('-h','--help', 'show help.') { puts opts.help; exit }
     opts.on('-v','--version', 'show version.') { puts opts.ver; exit }
