@@ -2,9 +2,9 @@
 This is a programming language.
 It's witten by bittn.
 
-[English](https://translate.google.com/translate?hl=en&sl=ja&tl=en&u=https://github.com/pinenut-programming-language/bittn/tree/master/example/example1)
+[English](https://translate.google.com/translate?hl=en&sl=ja&tl=en&u=https://github.com/pinenut-programming-language/bittn/tree/master/example/example2)
 
-[日本語](https://github.com/pinenut-programming-language/bittn/tree/master/example/example1)
+[日本語](https://github.com/pinenut-programming-language/bittn/tree/master/example/example2)
 
 これは、数値パーサです。
 出力はありません。
