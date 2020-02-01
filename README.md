@@ -10,11 +10,11 @@ This is programming language.
 2. [bikeとは](https://github.com/pinenut-programming-language/bittn/wiki/bikeとは)
 
 ## Versions
-### latest(2.1.2)
+### latest(3.0.0)
 
-[v2.1.2 release](https://github.com/pinenut-programming-language/bittn/releases/tag/v2.1.2)
+[v3.0.0 release](https://github.com/pinenut-programming-language/bittn/releases/tag/v3.0.0)
 
-[インストール方法](https://github.com/pinenut-programming-language/bittn/wiki/%E5%B0%8E%E5%85%A5%E6%96%B9%E6%B3%95(2.1.2))
+[インストール方法](https://github.com/pinenut-programming-language/bittn/wiki/%E5%B0%8E%E5%85%A5%E6%96%B9%E6%B3%95(v2.2.2-or-more))
 
 ### 2.1
 
@@ -30,6 +30,7 @@ This is programming language.
 [sources](https://github.com/pinenut-programming-language/bittn/tree/No.1)
 
 [インストール方法](https://github.com/pinenut-programming-language/bittn/wiki/%E5%B0%8E%E5%85%A5%E6%96%B9%E6%B3%95(1.0))
+
 
 # Contributors
 <a href="https://github.com/pinenut-programming-language/bittn/graphs/contributors">
