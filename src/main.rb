@@ -58,18 +58,26 @@ begin
       parser = Marshal.load(lang.getParser)
       code = open(filename, &:read)
       parser_result = parser.parse(code)
-      print("RESULT : \n")
-      pp parser_result
-      finished("PARSE")
+      print("RESULT : \n") if prgconfig[:debug]
+      pp parser_result if prgconfig[:debug]
+      finished("PARSE") if prgconfig[:debug]
+      if prgconfig[:parse_only]
+        exit(0)
+      end
       newblock("transform") if prgconfig[:debug]
       transformer = BittnTransformer.new(parser_result,Marshal.dump(lang))
       transformer_result = transformer.transform("")
-      print("RESULT : \n")
-      pp transformer_result
-      finished("TRANSFORM")
+      print("RESULT : \n") if prgconfig[:debug]
+      pp transformer_result if prgconfig[:debug]
+      finished("TRANSFORM") if prgconfig[:debug]
+      if prgconfig[:transform_only]
+        exit(0)
+      end
       newblock("run") if prgconfig[:debug]
       runner = BittnRunner.new(Marshal.dump(lang))
-      runner_result = runner.run("",transformer_result)
+      runner_result = runner.run("",transformer_result,"#{ENV["PROJECTDIR"]}/"+bikefile)
+      print("RESULT : \n") if prgconfig[:debug]
+      pp runner_result if prgconfig[:debug]
     end
   end
   if $0 == __FILE__
@@ -93,10 +101,12 @@ rescue => e
     puts "Traceback : "
     puts $@
     puts "-----------------------------------------------------------------"
-    puts "An error is occurred in the processing system"
+    puts "Giving the -d option may help."
+    puts "If that doesn't work, please issue on Github."
     puts "-----------------------------------------------------------------"
-    if yesno("Can you issue on github?")
+    if yesno("Will you issue on github?")
       puts "Thank you for your issue."
+      puts ""
       Launchy.open("https://github.com/pinenut-programming-language/bittn/issues/new?labels=&title=bug%20report%20from%20commande")
     else
       puts "You can issue on github."

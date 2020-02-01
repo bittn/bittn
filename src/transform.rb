@@ -8,11 +8,12 @@ class BittnTransformer
   end
   # path = newhash
   def transform(path)
+    result = []
     eval("@hash#{path}").each do |key,value|
       if @obj[key]==nil && @type[key]==nil
-        raise "#{@obj[key]}is not in @obj or @type.",BittnError
+        raise BittnError,"#{key} is not in @obj or @type."
       elsif @obj[key]!=nil && @type[key]!=nil
-        raise "#{@obj[key]}is in @obj and @type.",BittnError
+        raise BittnError,"#{key}is in @obj and @type."
       elsif @obj[key]!=nil
         node = Marshal.load(@obj[key])
         newvalue = []
@@ -23,13 +24,12 @@ class BittnTransformer
             newvalue[n] = transform(path+"[:#{key}][#{n}]")
           end
         end
-        node.new(newvalue)
-        return Marshal.dump(node)
-      elsif @type[:hash]!=nil
+        result.push(Marshal.dump(node.new(newvalue)))
+      elsif @type[key]!=nil
         node = Marshal.load(@type[key])
-        node.new(value)
-        return {key => value}
+        result.push(Marshal.dump(node.new(value)))
       end
     end
+    return result
   end
 end

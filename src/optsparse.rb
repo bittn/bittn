@@ -2,11 +2,19 @@ require 'optparse'
 require "#{ENV["BITTNDIR"]}/lib/yesorno/main.rb"
 class OptParse
   def parse_options(argv = ARGV)
-    prgconfig = {debug: false}
+    prgconfig = {debug: false,parse_only: false,transfrom_only: false}
     optvol = 0
     opts = OptionParser.new
     opts.on("-d","--debug","use debug mode. (default: #{prgconfig[:debug]})"){|v|
       prgconfig[:debug] = true
+      optvol+=1
+    }
+    opts.on("-p","--parse-only","parse only! (default: #{prgconfig[:debug]})"){|v|
+      prgconfig[:parse_only] = true
+      optvol+=1
+    }
+    opts.on("-t","--transorm-only","parse and transform only! (default: #{prgconfig[:debug]})"){|v|
+      prgconfig[:transform_only] = true
       optvol+=1
     }
     opts.program_name = "bittn"
