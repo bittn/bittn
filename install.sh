@@ -3,12 +3,15 @@
 
 if [ "$(uname)" == 'Darwin' ]; then #macOs
   if [ "$(ruby -e "puts Gem::Version.create('$(sw_vers -productVersion)') >= Gem::Version.create('10.15')")" == 'true' ]; then # catalina or later
+    echo "your OS is supported"
   elif [ "$(ruby -e "puts Gem::Version.create('$(sw_vers -productVersion)') >= Gem::Version.create('10.15')")" == 'false' ]; then # macOS
+    echo "your OS is supported"
   else
     echo "Your platform (macOS $(sw_vers -productVersion)) is not supported."
     exit 1
   fi
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then # linux
+  echo "your OS is supported"
 else
   putsn "Your platform ($(uname -a)) is not supported."
   exit 1
