@@ -1,11 +1,9 @@
-if $0 == __FILE__
-  require "#{ENV["BITTNDIR"]}/lib/bike/init/optsparse.rb"
-end
 require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
 require "#{ENV["BITTNDIR"]}/lib/bike/main.rb"
+require "#{ENV["BITTNDIR"]}/src/error.rb"
 
 class BikeError < BittnError; end
-class Init
+class BikeInit
   def initialize(argv)
     # optparse --------------------------
     opts = OptParse.new(argv)
@@ -33,7 +31,6 @@ class Init
     if FileTest.exists?(".bike/.bike_env")
       raise BikeError,".bike/.bike_env already exists. (LoadError)"
     end
-    FileUtils.cp("#{ENV["BITTNDIR"]}/lib/bike/Bikefile.template.rb", "Bikefile.rb")
     FileUtils.mkdir_p('.bike/')
     FileUtils.cp("#{ENV["BITTNDIR"]}/lib/bike/Bikefile-ma.template.rb", ".bike/.bike_env")
     puts "existed Bikefile.rb and .bike/.bike_env"

@@ -1,8 +1,7 @@
-if $0 == __FILE__
-  require "#{ENV["BITTNDIR"]}/lib/bike/init/main.rb"
-  require "#{ENV["BITTNDIR"]}/lib/bike/run/main.rb"
-  require "#{ENV["BITTNDIR"]}/lib/bike/set/main.rb"
-end
+
+require "#{ENV["BITTNDIR"]}/lib/bike/init/main.rb"
+require "#{ENV["BITTNDIR"]}/lib/bike/run/main.rb"
+require "#{ENV["BITTNDIR"]}/lib/bike/set/main.rb"
 require "#{ENV["BITTNDIR"]}/src/error.rb"
 require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
 require "#{ENV["BITTNDIR"]}/lib/bike/optsparse.rb"
@@ -31,10 +30,13 @@ begin
       end
       command = args
       newval(command,"command") if @prgconfig[:debug]
+      run(command)
+    end
+    def run(command)
       case command[0]
       when "init"
         msg("init") if @prgconfig[:debug]
-        Init.new(command)
+        BikeInit.new(command)
       when "run"
         msg("run") if @prgconfig[:debug]
         Run.new(command)
