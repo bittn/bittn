@@ -19,7 +19,27 @@ require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
 # end                     #
 # ----------------------- #
 
-
+class BittnTestLangParser < Parslet::Parser
+  idens = ["print"]
+  rule(:code) { }
+  rule(:line) { }
+  rule(:func) {
+    idens.map{|f| str(f)}.inject(:|).as(:idens) >> param
+  }
+end
+class Lang end
+class FuncNode
+  def call()
+    idens = Marshal.load(@data[0][0]).exec
+    param = Marshal.load(@data[0][1]).call
+    PrintNode.new(param).call
+  end#（中略）
+end
+class PrintNode
+  def call()
+    print(@data)
+  end#（中略）
+end
 
 class BittnTestLang2Parser < Parslet::Parser
   idens = ["print"]

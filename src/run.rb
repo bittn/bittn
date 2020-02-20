@@ -18,3 +18,13 @@ class BittnRunner
     end
   end
 end
+
+if $0 == __FILE__
+  print("Lang: ")
+  lang = gets.chomp
+  print("hash: ")
+  hash = gets.chomp
+
+  BittnRunner.new(lang).run("",hash,"")
+
+end

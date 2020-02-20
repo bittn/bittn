@@ -54,6 +54,9 @@ begin
       # p ENV["PROJECTDIR"]
       require "#{ENV["PROJECTDIR"]}/"+bikefile
       lang = Lang.new
+      newval("","lang") if prgconfig[:debug]
+      puts ""
+      # pp Marshal.dump(lang)
       newblock("parse") if prgconfig[:debug]
       parser = Marshal.load(lang.getParser)
       code = open(filename, &:read)
@@ -89,7 +92,7 @@ rescue BittnError => e
   exit(1)
 rescue Parslet::ParseFailed => e
   newblock("parslet error") if prgconfig[:debug]
-  puts e.message
+  puts e.message+" (ParseError)"
   exit(1)
 rescue => e
   newblock("standard error") if prgconfig[:debug]
