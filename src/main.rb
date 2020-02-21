@@ -55,7 +55,6 @@ begin
       require "#{ENV["PROJECTDIR"]}/"+bikefile
       lang = Lang.new
       newval("","lang") if prgconfig[:debug]
-      puts ""
       # pp Marshal.dump(lang)
       newblock("parse") if prgconfig[:debug]
       parser = Marshal.load(lang.getParser)
