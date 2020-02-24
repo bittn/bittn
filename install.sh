@@ -53,12 +53,8 @@ else
   gem --version
   gem list
 fi
-sudo gem install parslet
-sudo gem install dotenv
-sudo gem install highline
-sudo gem install launchy
-sudo gem install fileutils
-#rake
+
+sh geminstaller.sh
 if !(type "rake" > /dev/null 2>&1); then
   echo -n "Install rake [Y/n]: "
   read ANS
