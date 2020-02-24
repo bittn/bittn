@@ -54,7 +54,8 @@ else
   gem list
 fi
 
-sh geminstaller.sh
+sudo sh geminstaller.sh
+
 if !(type "rake" > /dev/null 2>&1); then
   echo -n "Install rake [Y/n]: "
   read ANS
