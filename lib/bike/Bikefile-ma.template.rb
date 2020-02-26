@@ -1,1 +1,0 @@
-BIKEFILE = "Bikefile.rb"
