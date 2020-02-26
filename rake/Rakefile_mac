@@ -4,8 +4,6 @@ desc 'Install bittn programming language'
 task :install do
   sh "cp bin/bittn_mac /usr/local/bin/bittn"
   sh "chmod 755 /usr/local/bin/bittn"
-  sh "cp bin/bike_mac /usr/local/bin/bike"
-  sh "chmod 755 /usr/local/bin/bike"
   print "\e[32m"
   puts "---- successfully install ----"
   case ENV["SHELL"].split("/").last

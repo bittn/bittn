@@ -4,9 +4,6 @@ desc 'Install bittn programming language'
 task :install do
   sh "cp bin/bittn_linux /usr/local/bin/bittn"
   sh "chmod 755 /usr/local/bin/bittn"
-  sh "cp bin/bike_linux /usr/local/bin/bike"
-  sh "chmod 755 /usr/local/bin/bike"
-  print "\e[32m"
   puts "---- successfully install ----"
   case ENV["SHELL"].split("/").last
   when /bash|zsh/

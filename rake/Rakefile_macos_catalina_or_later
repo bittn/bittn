@@ -5,8 +5,6 @@ task :install do
   sh "bundle install"
   sh "cp bin/bittn_macos_catalina_or_later /usr/local/bin/bittn"
   sh "chmod 755 /usr/local/bin/bittn"
-  sh "cp bin/bike_macos_catalina_or_later /usr/local/bin/bike"
-  sh "chmod 755 /usr/local/bin/bike"
   print "\e[32m"
   puts "---- successfully install ----"
   case ENV["SHELL"].split("/").last
