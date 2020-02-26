@@ -1,6 +1,0 @@
-#!/bin/zsh
-if ! [ -v BITTNDIR ]; then
-  echo -e "\e[1;31m Please set \$BITTNDIR \e[m"
-  exit 1
-fi
-PROJECTDIR="$(pwd)" ruby ${BITTNDIR}/lib/bike/main.rb $@
