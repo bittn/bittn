@@ -1,5 +1,4 @@
-# Bittn
-This is programming language.
+# bittn compiler infrastructure
 
 [English](https://translate.google.com/translate?hl=en&sl=ja&tl=en&u=https%3A%2F%2Fgithub.com%2Fpinenut-programming-language%2Fbittn%2Fwiki)
 
