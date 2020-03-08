@@ -9,9 +9,9 @@
 2. [bikeとは](https://github.com/pinenut-programming-language/bittn/wiki/bikeとは)
 
 ## Versions
-### latest(3.0.0)
+### latest(3.1.0)
 
-[v3.0.0 release](https://github.com/pinenut-programming-language/bittn/releases/tag/v3.0.0)
+[v3.1.0 release](https://github.com/pinenut-programming-language/bittn/releases/tag/v3.1.0)
 
 [インストール方法](https://github.com/pinenut-programming-language/bittn/wiki/%E5%B0%8E%E5%85%A5%E6%96%B9%E6%B3%95(v2.2.2-or-more))
 
