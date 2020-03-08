@@ -1,13 +1,10 @@
 require 'launchy'
 require 'ripper'
 
-require "#{ENV["BITTNDIR"]}/lib/debugmsgs/main.rb"
-require "#{ENV["BITTNDIR"]}/lib/bike/main.rb"
-require "#{ENV["BITTNDIR"]}/src/error.rb"
-require "#{ENV["BITTNDIR"]}/lib/yesorno/main.rb"
-require "#{ENV["BITTNDIR"]}/src/optsparse.rb"
-require "#{ENV["BITTNDIR"]}/src/transform.rb"
-require "#{ENV["BITTNDIR"]}/src/run.rb"
+require "#{ENV["BITTNDIR"]}/lib/libloader/main.rb"
+libloader().each do |n|
+  require n
+end
 
 prgconfig,args,optvol = OptParse.new(ARGV).run
 

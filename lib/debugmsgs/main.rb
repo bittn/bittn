@@ -1,3 +1,7 @@
+require "#{ENV["BITTNDIR"]}/lib/libloader/main.rb"
+libloader().each do |n|
+  require n
+end
 def newval(val,name)
   puts "NEW VALUE : #{name} = #{val}"
 end

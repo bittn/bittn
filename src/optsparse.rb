@@ -1,5 +1,9 @@
 require 'optparse'
-require "#{ENV["BITTNDIR"]}/lib/yesorno/main.rb"
+require "#{ENV["BITTNDIR"]}/lib/libloader/main.rb"
+libloader().each do |n|
+  require n
+end
+
 class OptParse
   def parse_options(argv = ARGV)
     prgconfig = {debug: false,parse_only: false,transfrom_only: false}

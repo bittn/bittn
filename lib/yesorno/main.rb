@@ -1,3 +1,7 @@
+require "#{ENV["BITTNDIR"]}/lib/libloader/main.rb"
+libloader().each do |n|
+  require n
+end
 require 'highline/import'
 def yesno(prompt = 'Continue?', default = true)
   a = ''

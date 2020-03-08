@@ -1,3 +1,7 @@
+require "#{ENV["BITTNDIR"]}/lib/libloader/main.rb"
+libloader().each do |n|
+  require n
+end
 class BittnRunner
   def initialize(lang)
     @lang = Marshal.load(lang)

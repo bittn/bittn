@@ -1,3 +1,7 @@
+require "#{ENV["BITTNDIR"]}/lib/libloader/main.rb"
+libloader().each do |n|
+  require n
+end
 class BittnError < StandardError; end
 class BikeError < BittnError; end
 if $0 == __FILE__

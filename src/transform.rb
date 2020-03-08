@@ -1,3 +1,7 @@
+require "#{ENV["BITTNDIR"]}/lib/libloader/main.rb"
+libloader().each do |n|
+  require n
+end
 class BittnTransformer
   def initialize(parser_result,lang)
     @hash = parser_result
