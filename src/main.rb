@@ -1,3 +1,4 @@
+require 'byebug'
 require 'launchy'
 require 'ripper'
 
@@ -7,11 +8,13 @@ libloader().each do |n|
 end
 
 prgconfig,args,optvol = OptParse.new(ARGV).run
+newval(prgconfig,"prgconfig")
+byebug if prgconfig[:byebug]
+
 
 begin
   class Bittn
     def initialize(prgconfig,args,optvol)
-      # optparse --------------------------
       if prgconfig[:debug]
         newblock()
         puts "---------------- START DEBUG ------------------------------------"

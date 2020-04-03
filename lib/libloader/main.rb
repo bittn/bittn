@@ -8,5 +8,7 @@ def libloader()
       "#{ENV["BITTNDIR"]}/src/transform.rb",
       "#{ENV["BITTNDIR"]}/lib/yesorno/main.rb",
       "#{ENV["BITTNDIR"]}/src/run.rb" ]
-  return require_lists.select{|n| n!=caller[0][/^([^:]+):\d+:in `[^']*'$/, 1]}
+  s = require_lists.select{|n| n!=caller[0][/^([^:]+):\d+:in `[^']*'$/, 1]}
+  p s
+  return s
 end

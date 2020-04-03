@@ -6,11 +6,15 @@ end
 
 class OptParse
   def parse_options(argv = ARGV)
-    prgconfig = {debug: false,parse_only: false,transfrom_only: false}
+    prgconfig = {debug: false,parse_only: false,transfrom_only: false,byebug: false}
     optvol = 0
     opts = OptionParser.new
     opts.on("-d","--debug","use debug mode. (default: #{prgconfig[:debug]})"){|v|
       prgconfig[:debug] = true
+      optvol+=1
+    }
+     opts.on("-b","--byebug","use byebug. (default: #{prgconfig[:byebug]})"){|v|
+      prgconfig[:byebug] = true
       optvol+=1
     }
     opts.on("-p","--parse-only","parse only! (default: #{prgconfig[:debug]})"){|v|

@@ -259,3 +259,15 @@ class IntegerNode
     self.class.name
   end
 end
+
+class StringNode
+  def initialize(data)
+    @data = data
+  end
+  def exec()
+    return data[0].to_i
+  end
+  def class_name
+    self.class.name
+  end
+end
