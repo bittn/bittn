@@ -15,6 +15,10 @@ task :install do
     puts " # in .config/fish/config.fish"
     puts "set -x BITTNDIR #{`pwd`}"
     puts "set PATH /usr/local/bin $PATH"
+  else
+    puts " # in .bashrc"
+    puts "set -x BITTNDIR #{`pwd`}"
+    puts "set PATH /usr/local/bin $PATH"
   end
   print "\e[0m"
 end
