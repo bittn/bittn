@@ -23,7 +23,7 @@ class BittnTestLang2Parser < Parslet::Parser
   idens = ["print"]
   root(:code)
   rule(:space){ str(" ") }
-  rule(:spaces){ space.repeat(1) }
+  rule(:spaces){ space.repeat(0) }
   rule(:space?){ spaces.maybe }
   rule(:return_mark){ str("\n") }
   rule(:returns){ return_mark.repeat(1) }
@@ -32,13 +32,10 @@ class BittnTestLang2Parser < Parslet::Parser
   rule(:sprt){ (return_mark | space).repeat(1)}
   rule(:chars){ str("a") | str("b") | str("c") | str("d") | str("e") | str("f") | str("g") | str("h") | str("i") | str("j") | str("k") | str("l") | str("m") | str("n") | str("o") | str("p") | str("q") | str("r") | str("s") | str("t") | str("u") | str("v") | str("w") | str("x") | str("y") | str("z") | str("A") | str("B") | str("C") | str("D") | str("E") | str("F") | str("G") | str("H") | str("I") | str("J") | str("K") | str("L") | str("M") | str("N") | str("O") | str("P") | str("Q") | str("R") | str("S") | str("T") | str("U") | str("V") | str("W") | str("X") | str("Y") | str("Z") | str("0") | str("1") | str("2") | str("3") | str("4") | str("5") | str("6") | str("7") | str("8") | str("9") | str(" ") | str("!") | str("\\\"") | str("#") | str("$") | str("%") | str("&") | str("\\'") | str("(") | str(")") | str("-") | str("^") | str("@") | str("[") | str(";") | str(":") | str("]") | str(",") | str(".") | str("/") | str("\\\\") | str("=") | str("~") | str("|") | str("`") | str("{") | str("+") | str("*") | str("}") | str("<") | str(">") | str("?") | str("_") | str("\\n") | str("\s") | str("\t") }
 
-  rule(:string) {
-    str("\"") >> chars.repeat.as(:chars) >> str("\"")
-  }
 
-  # rule(:var) {
-  #   match("[a-z]") >> match("[a-zA-Z1234567890]").repeat
-  # }
+  rule(:var) {
+    match("[a-z]") >> match("[a-zA-Z1234567890]").repeat
+  }
 
   rule(:integer) {
     match("[0-9]").repeat(1)
@@ -46,28 +43,25 @@ class BittnTestLang2Parser < Parslet::Parser
 
   rule(:code) {
     (line.as(:line) | sprt).repeat(0).as(:code)
-    # (line.repeat(1).as(:line) | str("")).as(:code)
   }
 
   rule(:line) {
-    func.as(:func) | value.as(:value)
+    assign.as(:assign) | cwhile.as(:while)
   }
 
-  rule(:func) {
-    idens.map{|f| str(f)}.inject(:|).as(:idens) >> param
+  rule(:assign) {
+    var.as(:var) >> spaces >> str("=") >> value.as(:value)
   }
 
-  rule(:param){
-    str("(") >> sprt? >> ( sprt? >> line.as(:param) >> sprt? >> (sprt? >> str(",") >> sprt? >> line.as(:param) >> sprt?).repeat(0)).maybe >> sprt? >> str(")")
-# >> block.maybe.as(:block)
+  rule(:while) {
+    str("while") >> cond.as(:cond) >> sprt? >> code.ad(:code) >> sprt? >> str("end")
   }
 
-  # rule(:block){
-  #   str("{") >> sprt? >> code.as(:code) >> sprt? >>str("}")
-  # }
+  
+
 
   rule(:value){
-    string.as(:string) | integer.as(:integer)
+    integer.as(:integer) | exp.as(:exp)
   }
 end
 

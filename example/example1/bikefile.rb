@@ -1,4 +1,5 @@
-require 'parslet'
+require "bittn"
+require "parslet"
 
 # ----- Sample ---------- #
 # class ****Node          #
@@ -18,8 +19,6 @@ require 'parslet'
 # end                     #
 # ----------------------- #
 
-
-
 class BittnTestLangParser < Parslet::Parser
   root(:code)
   rule(:code) {
@@ -30,12 +29,10 @@ class BittnTestLangParser < Parslet::Parser
     (integer.as(:integer)).as(:line) >> str("\n") | str("\n")
   }
 
-  rule(:integer){
+  rule(:integer) {
     match("[0-9]").repeat(1)
   }
 end
-
-
 
 class Lang
   def initialize
@@ -45,35 +42,17 @@ class Lang
     @kinds = {
       "CodeNode" => :obj,
       "LineNode" => :obj,
-      "IntegerNode" => :type
+      "IntegerNode" => :type,
     }
     @obj = {
       # Marshal.dump(PrintNode.new)
       :code => Marshal.dump(CodeNode),
-      :line => Marshal.dump(LineNode)
+      :line => Marshal.dump(LineNode),
 
     }
     @type = {
-      :integer => Marshal.dump(IntegerNode)
+      :integer => Marshal.dump(IntegerNode),
     }
-  end
-  def getName
-    return @name
-  end
-  def getVersion
-    return @version
-  end
-  def getParser
-    return @parser
-  end
-  def getObj
-    return @obj
-  end
-  def getType
-    return @type
-  end
-  def getKinds
-    return @kinds
   end
 end
 
@@ -81,9 +60,11 @@ class CodeNode
   def initialize(data)
     @data = data
   end
+
   def call()
     Marshal.load(@data[0][0]).call
   end
+
   def class_name
     self.class.name
   end
@@ -93,9 +74,11 @@ class LineNode
   def initialize(data)
     @data = data
   end
+
   def call()
     Marshal.load(@data[0][0]).exec
   end
+
   def class_name
     self.class.name
   end
@@ -105,9 +88,11 @@ class IntegerNode
   def initialize(data)
     @data = data
   end
+
   def exec()
     return @data.to_i
   end
+
   def class_name
     self.class.name
   end

@@ -16,7 +16,7 @@ task :install do
     puts "set -x BITTNDIR #{`pwd`}"
     puts "set PATH /usr/local/bin $PATH"
   else
-    puts " # in .bashrc
+    puts " # in .bashrc"
     puts "set -x BITTNDIR #{`pwd`}"
     puts "set PATH /usr/local/bin $PATH"
   end

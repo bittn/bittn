@@ -1,61 +1,56 @@
-require 'byebug'
-require 'launchy'
-require 'ripper'
+require "byebug"
+require "launchy"
+require "ripper"
 
 require "#{ENV["BITTNDIR"]}/lib/libloader/main.rb"
-libloader().each do |n|
-  require n
-end
+libloader().each { |n| require n }
 
-prgconfig,args,optvol = OptParse.new(ARGV).run
-newval(prgconfig,"prgconfig")
+prgconfig, args, optvol = OptParse.new(ARGV).run
+newval(prgconfig, "prgconfig") if prgconfig[:debug]
 byebug if prgconfig[:byebug]
-
 
 begin
   class Bittn
-    def initialize(prgconfig,args,optvol)
+    def initialize(prgconfig, args, optvol)
       if prgconfig[:debug]
         newblock()
         puts "---------------- START DEBUG ------------------------------------"
         newblock()
       end
       if prgconfig[:debug]
-        newval(prgconfig,"prgconfig")
-        newval(args,"args")
-        newval(optvol,"optvol")
+        newval(prgconfig, "prgconfig")
+        newval(args, "args")
+        newval(optvol, "optvol")
       end
       newblock("inputs") if prgconfig[:debug]
       if args.size < 1
-        raise BittnError,"File and Bikefile not specified. (FileError)"
+        raise BittnError, "File and Bikefile not specified. (FileError)"
       end
       if args.size < 2
-        raise BittnError,"File or Bikefile not specified. (FileError)"
+        raise BittnError, "File or Bikefile not specified. (FileError)"
       end
       if args.size > 2
-        raise BittnError,"Number of arguments is more than #{optval+1}. (LoadError)"
+        raise BittnError, "Number of arguments is more than #{optval + 1}. (LoadError)"
       end
       bikefile = args[0]
       filename = args[1]
-      newval(filename,"filename") if prgconfig[:debug]
-      newval(bikefile,"bikefile") if prgconfig[:debug]
+      newval(filename, "filename") if prgconfig[:debug]
+      newval(bikefile, "bikefile") if prgconfig[:debug]
       if !File.exist?(filename)
-        raise BittnError,"Scriptfile is not found. (FileError)"
+        raise BittnError, "Scriptfile is not found. (FileError)"
       end
       if !File.file?(filename)
-        raise BittnError,"Can't assign to keyword. (FileError)"
+        raise BittnError, "Can't assign to keyword. (FileError)"
       end
       if !File.exist?(bikefile)
-        raise BittnError,"Bikefile is not found. (FileError)"
+        raise BittnError, "Bikefile is not found. (FileError)"
       end
       if !File.file?(bikefile)
-        raise BittnError,"Can't assign to keyword. (FileError)"
+        raise BittnError, "Can't assign to keyword. (FileError)"
       end
-      # p ENV["PROJECTDIR"]
-      require "#{ENV["PROJECTDIR"]}/"+bikefile
+      require "#{ENV["PROJECTDIR"]}/" + bikefile
       lang = Lang.new
-      newval("","lang") if prgconfig[:debug]
-      # pp Marshal.dump(lang)
+      newval("", "lang") if prgconfig[:debug]
       newblock("parse") if prgconfig[:debug]
       parser = Marshal.load(lang.getParser)
       code = open(filename, &:read)
@@ -66,24 +61,25 @@ begin
       if prgconfig[:parse_only]
         exit(0)
       end
-      newblock("transform") if prgconfig[:debug]
-      transformer = BittnTransformer.new(parser_result,Marshal.dump(lang))
+      newblock("TRANSFORM") if prgconfig[:debug]
+      transformer = BittnTransformer.new(parser_result, Marshal.dump(lang))
       transformer_result = transformer.transform("")
-      print("RESULT : \n") if prgconfig[:debug]
-      pp transformer_result if prgconfig[:debug]
-      finished("TRANSFORM") if prgconfig[:debug]
+      print("RESULT : \n") if prgconfig[:debug] || prgconfig[:transform_only]
+      pp transformer_result if prgconfig[:debug] || prgconfig[:transform_only]
+      finished("TRANSFORM") if prgconfig[:debug] || prgconfig[:transform_only]
       if prgconfig[:transform_only]
         exit(0)
       end
       newblock("run") if prgconfig[:debug]
       runner = BittnRunner.new(Marshal.dump(lang))
-      runner_result = runner.run("",transformer_result,"#{ENV["PROJECTDIR"]}/"+bikefile)
+      runner_result = runner.run("", transformer_result, "#{ENV["PROJECTDIR"]}/" + bikefile)
       print("RESULT : \n") if prgconfig[:debug]
       pp runner_result if prgconfig[:debug]
     end
   end
+
   if $0 == __FILE__
-    Bittn.new(prgconfig,args,optvol)
+    Bittn.new(prgconfig, args, optvol)
   end
 rescue BittnError => e
   newblock("bittn error") if prgconfig[:debug]
@@ -91,7 +87,7 @@ rescue BittnError => e
   exit(1)
 rescue Parslet::ParseFailed => e
   newblock("parslet error") if prgconfig[:debug]
-  puts e.message+" (ParseError)"
+  puts e.message + " (ParseError)"
   exit(1)
 rescue => e
   newblock("standard error") if prgconfig[:debug]
@@ -109,7 +105,7 @@ rescue => e
     if yesno("Will you issue on github?")
       puts "Thank you for your issue."
       puts ""
-      Launchy.open("https://github.com/pinenut-programming-language/bittn/issues/new?labels=&title=bug%20report%20from%20commande")
+      Launchy.open("https://github.com/pinenut-programming-language/bittn/issues/new?labels=&title=bug%20report%20from%20command")
     else
       puts "You can issue on github."
       puts "https://github.com/pinenut-programming-language/bittn/issues/new"
@@ -117,3 +113,4 @@ rescue => e
   end
   exit(1)
 end
+
